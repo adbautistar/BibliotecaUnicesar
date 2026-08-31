@@ -4,6 +4,8 @@
 
 package biblioteca.bibliotecaunicesar;
 
+import biblioteca.bibliotecaunicesar.view.MainMenu;
+
 /**
  *
  * @author alfre
@@ -11,6 +13,6 @@ package biblioteca.bibliotecaunicesar;
 public class BibliotecaUnicesar {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        new MainMenu().start();
     }
 }
