@@ -1,5 +1,8 @@
 package biblioteca.bibliotecaunicesar.view;
 
+import biblioteca.bibliotecaunicesar.exception.BookNotAvailableException;
+import biblioteca.bibliotecaunicesar.exception.InvalidLoanException;
+import biblioteca.bibliotecaunicesar.exception.UserNotFoundException;
 import biblioteca.bibliotecaunicesar.model.Book;
 import biblioteca.bibliotecaunicesar.model.Loan;
 import biblioteca.bibliotecaunicesar.model.User;
@@ -51,7 +54,7 @@ public class LoanView {
         try {
             Loan loan = loanService.registerLoan(userId, bookId, LocalDate.now(), LocalDate.now().plusDays(days));
             System.out.println("Préstamo registrado con id " + loan.getId());
-        } catch (IllegalArgumentException | IllegalStateException e) {
+        } catch (UserNotFoundException | BookNotAvailableException | InvalidLoanException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
@@ -63,7 +66,7 @@ public class LoanView {
         try {
             loanService.returnLoan(loanId);
             System.out.println("Devolución registrada.");
-        } catch (IllegalArgumentException e) {
+        } catch (InvalidLoanException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }

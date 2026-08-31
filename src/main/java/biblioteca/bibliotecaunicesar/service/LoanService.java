@@ -1,5 +1,8 @@
 package biblioteca.bibliotecaunicesar.service;
 
+import biblioteca.bibliotecaunicesar.exception.BookNotAvailableException;
+import biblioteca.bibliotecaunicesar.exception.InvalidLoanException;
+import biblioteca.bibliotecaunicesar.exception.UserNotFoundException;
 import biblioteca.bibliotecaunicesar.model.Book;
 import biblioteca.bibliotecaunicesar.model.Loan;
 import biblioteca.bibliotecaunicesar.model.User;
@@ -31,24 +34,24 @@ public class LoanService {
     public Loan registerLoan(Long userId, Long bookId, LocalDate loanDate, LocalDate returnDate) {
         User user = userRepository.findById(userId);
         if (user == null) {
-            throw new IllegalArgumentException("El usuario no existe.");
+            throw new UserNotFoundException("El usuario no existe.");
         }
 
         Book book = bookRepository.findById(bookId);
         if (book == null) {
-            throw new IllegalArgumentException("El libro no existe.");
+            throw new InvalidLoanException("El libro no existe.");
         }
 
         if (!book.isAvailable()) {
-            throw new IllegalStateException("El libro no está disponible para préstamo.");
+            throw new BookNotAvailableException("El libro no está disponible para préstamo.");
         }
 
         if (!returnDate.isAfter(loanDate)) {
-            throw new IllegalArgumentException("La fecha de devolución debe ser posterior a la fecha de préstamo.");
+            throw new InvalidLoanException("La fecha de devolución debe ser posterior a la fecha de préstamo.");
         }
 
         if (countActiveLoans(user) >= user.getLoanLimit()) {
-            throw new IllegalStateException("El usuario alcanzó su límite de préstamos activos.");
+            throw new InvalidLoanException("El usuario alcanzó su límite de préstamos activos.");
         }
 
         Long id = generateNextId();
@@ -65,7 +68,7 @@ public class LoanService {
     public void returnLoan(Long loanId) {
         Loan loan = loanRepository.findById(loanId);
         if (loan == null) {
-            throw new IllegalArgumentException("El préstamo no existe.");
+            throw new InvalidLoanException("El préstamo no existe.");
         }
 
         loan.setReturned(true);
