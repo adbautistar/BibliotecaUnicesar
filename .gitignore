@@ -1,0 +1,18 @@
+target/
+*.class
+*.jar
+*.log
+
+# NetBeans
+nbactions.xml
+nb-configuration.xml
+.nb-gradle/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
