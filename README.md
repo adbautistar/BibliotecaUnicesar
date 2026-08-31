@@ -31,7 +31,9 @@ ARCHIVOS TXT
 - **View**: interacción por consola. Recibe entradas y muestra resultados.
 - **Service**: reglas de negocio y coordinación de casos de uso.
 - **Repository**: contrato y acceso a la persistencia.
-- **Model**: entidades del dominio (`Persona`, `Usuario`, `Bibliotecario`, `Libro`, `Prestamo`).
+- **Model**: entidades del dominio (`Person`, `User`, `Librarian`, `Book`, `Loan`).
+
+> **Nota:** `Librarian` modela la herencia de `Person` junto con `User`, pero todavía no tiene `Repository`, `Service` ni opción en el menú de consola. Es un modelo pendiente de conectar, no código muerto por error — se deja documentado aquí hasta que el alcance del proyecto requiera gestionar bibliotecarios.
 
 ## Estructura del proyecto
 
@@ -39,7 +41,6 @@ ARCHIVOS TXT
 BibliotecaUnicesar/
 ├── src/main/java/biblioteca/bibliotecaunicesar/
 │   ├── model/
-│   ├── dto/
 │   ├── repository/
 │   ├── service/
 │   ├── view/
