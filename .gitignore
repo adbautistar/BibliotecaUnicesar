@@ -12,6 +12,7 @@ nb-configuration.xml
 .idea/
 *.iml
 .vscode/
+.claude/
 
 # OS
 .DS_Store
